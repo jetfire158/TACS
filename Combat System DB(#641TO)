@@ -1,0 +1,273 @@
+
+Combat System DB(#641TO)
+Type: THING Flags: OPAQUE
+This is the current TACS Combat System Database! As of 2013, at least.
+Owner: Ashen-Shugar(#617PWenACk)  Zone: *NOTHING*  Pennies: 10
+Parent: *NOTHING*
+Powers: 
+Warnings checked: 
+Created: Sun Mar 06 04:21:03 2016
+Last Modification: Sun Mar 06 04:25:27 2016
+INFO_ABILITY_BODYGUARD [#617]: Always successful at covering.^2^
+INFO_ABILITY_CHARGE [#617]: +4 energon during !passes.^4^
+INFO_ABILITY_CLOAK [#617]: Hide at will, sneak attack on reveal.^10^RESTRICTED
+INFO_ABILITY_CONSTRUCTION [#617]: Rebuild and patch vehicle and base objects, using TEC.^5^
+INFO_ABILITY_CRACKSHOT [#617]: Take aim for self or ally, using INT.^4^
+INFO_ABILITY_DEMOLITION [#617]: Build bombs and grenades, using TEC.^5^
+INFO_ABILITY_DIVE [#617]: Improve AGL underwater, using VEL.^2^
+INFO_ABILITY_ENHANCED_SENSES [#617]: Reveal hidden targets, hear mutters.^6^
+INFO_ABILITY_EVADE [#617]: Bluff opponent, dodge all attacks. Consumes ENE rapidly.^9^RESTRICTED
+INFO_ABILITY_EXO-SUIT [#617]: Humanoids gain an Exo-Vehicle mode with its own point pool.^4^
+INFO_ABILITY_FLIGHT [#617]: Improve AGL at high altitude, using VEL.^2^
+INFO_ABILITY_FORCEFIELD [#617]: Cast around self or ally to use ENE in place of END.^6^
+INFO_ABILITY_FTL [#617]: Travel insterstellar distances. Obsolete.^6^noshow
+INFO_ABILITY_GENERATE [#617]: Superior form of Charge.^6^NOSHOW
+INFO_ABILITY_HEADMASTER [#617]: Character is a Headmaster.^0^SECRET
+INFO_ABILITY_HEAL [#617]: Revive, heal, and patch player characters, using TEC.^4^
+INFO_ABILITY_HIDE [#617]: Hide at will; no sneak attack on reveal.^5^
+INFO_ABILITY_HOLOGRAMS [#617]: Produce large convincing holograms. No combat effect.^6^
+INFO_ABILITY_INSPIRE [#617]: Raise the COU of one or more allies, using LDR.^3^
+INFO_ABILITY_INTERCEPTION [#617]: Comprehensive powers over channel and point-to-point radio.^8^RESTRICTED
+INFO_ABILITY_INVULNERABLE [#617]: Cannot be damaged.^0^NOSHOW
+INFO_ABILITY_JAMMING [#617]: Block point-to-point radio.^5^NOSHOW
+INFO_ABILITY_LR_RADIO [#617]: Send point-to-point radio between planets.^1^
+INFO_ABILITY_OPERATOR [#617]: Humanoids gain a vehicle/exo-suit mode with its own point pool.^4^
+INFO_ABILITY_PILOT [#617]: Pilot vehicle objects.^2^
+INFO_ABILITY_POWERMASTER [#617]: Character is a Powermaster.^0^SECRET
+INFO_ABILITY_RADAR [#617]: Reveal multiple hidden targets simultaneously.^8^RESTRICTED
+INFO_ABILITY_RECALIBRATE [#617]: Patch general stat damage, using INT+TEC.^4^
+INFO_ABILITY_REFUEL [#617]: Refuel allies' ENE. Fuel reserve based on TEC.^4^
+INFO_ABILITY_REINFORCE [#617]: Patch ARM damage, using INT+TEC.^4^
+INFO_ABILITY_REPAIR [#617]: Revive, repair and patch player characters.^5^
+INFO_ABILITY_RESUPPLY [#617]: Reload ammo for self or ally more often than NPCs.^4^
+INFO_ABILITY_SABOTAGE [#617]: Iiiiii can't stand it I know you planned it!^0^SECRET
+INFO_ABILITY_SCOUT [#617]: Boost damage for self or ally vs. target, using INT.^5^
+INFO_ABILITY_SCRAPPY [#617]: Take that! Aaaaand that!^0^SECRET
+INFO_ABILITY_SNEAK [#617]: Hide once before combat, gain sneak attack on reveal.^8^RESTRICTED
+INFO_ABILITY_SOLID [#617]: Oh, you want some of this?!^0^SECRET
+INFO_ABILITY_SPACE-FLIGHT [#617]: Improve AGL in space, using VEL.^4^
+INFO_ABILITY_SPACE-PILOT [#617]: Obsolete version of Pilot just for shuttle objects.^2^SECRET
+INFO_ABILITY_SPACE-WALK [#617]: Slightly improve AGL in space, using VEL.^2^
+INFO_ABILITY_SUPPORT [#617]: Support your allies in combat^0^SECRET
+INFO_ABILITY_SWIM [#617]: Improve AGL in water rooms, using VEL.^1^
+INFO_ABILITY_TARGETMASTER [#617]: Character is a Targetmaster.^0^SECRET
+INFO_ABILITY_UNSTOPPABLE [#617]: Consumes no energon.^0^NOSHOW
+INFO_ABILITY_WEAPONSMITH [#617]: Build weapons for self and allies. Allied use consumes AP.^7^RESTRICTED
+INFO_ATTACK-TYPE_AREA-MELEE [#617]: Hand-to-Hand against multiple targets (ground stomp)^2
+INFO_ATTACK-TYPE_AREA-RANGED [#617]: Distance against multiple targets (explosives, sonic blast)^2
+INFO_ATTACK-TYPE_COMMAND [#617]: Attack powered by the charisma of the user^0^NOSHOW
+INFO_ATTACK-TYPE_ENDURANCE [#617]: Attack powered by the endurance of the user^0^NOSHOW
+INFO_ATTACK-TYPE_FORTITUDE [#617]: Attack powered by the endurance of the user^0^NOSHOW
+INFO_ATTACK-TYPE_MELEE [#617]: Hand-to-Hand against single targets (fists, claws, blades)^0
+INFO_ATTACK-TYPE_MIND [#617]: Attack powered by the intelligence of the user^0^NOSHOW
+INFO_ATTACK-TYPE_RANGED [#617]: Distance against single target (rifles, lasers, rockets)^0
+INFO_ATTACK-TYPE_SCIENCE [#617]: Attack powered by the technical ability of the user^1^RESTRICTED
+INFO_ATTACK-TYPE_VELOCITY [#617]: Momentum-based attacks (charge, ram, body check)^0
+INFO_ATTACK-TYPE_WILLPOWER [#617]: Uses sheer force of will (Courage) as a power source^0^NOSHOW
+INFO_BIN_TYPE_DOUBLE [#617]: (10 - CP Cost) x 2^^
+INFO_BIN_TYPE_HALF [#617]: (10 - CP Cost) * 50% (rounded down)^^
+INFO_BIN_TYPE_SHARED [#617]: Empty bin (get ammo from another mode or attack)^^
+INFO_BIN_TYPE_STANDARD [#617]: Standard bin size (10 - CP Cost)^^
+INFO_BIN_TYPE_TRIPLE [#617]: (10 - CP Cost) x 3^^NOSHOW
+INFO_COMBAT-FLAG_AIMING [#617]: You have taken extra time to aim your next attack^^
+INFO_COMBAT-FLAG_ARMOR-OP [#617]: An engineer has done Armor Optimization work on you^^
+INFO_COMBAT-FLAG_BLINDED [#617]: Your accuracy (hit) is temporarily impaired^^
+INFO_COMBAT-FLAG_BLINDED2 [#617]: Like BLINDED. But worse!^^SECRET
+INFO_COMBAT-FLAG_CLOAKED [#617]: You are completely invisible (Using the CLOAK ability)^^
+INFO_COMBAT-FLAG_COMBAT [#617]: You have participated in combat recently^^
+INFO_COMBAT-FLAG_CONFUSED [#617]: Your systems have been scrambled. Next attack goes "wild"^^
+INFO_COMBAT-FLAG_COVERED [#617]: Someone is sheilding you from harm^^NOSHOW
+INFO_COMBAT-FLAG_COVERING [#617]: You are shielding someone from harm with your body^^NOSHOW
+INFO_COMBAT-FLAG_CRIPPLED [#617]: Your agility (dodge) is temporarily impaired^^
+INFO_COMBAT-FLAG_CRIPPLED2 [#617]: Like CRIPPLED. But worse!^^SECRET
+INFO_COMBAT-FLAG_DIZZY [#617]: Your agility & accuracy is temporarily mildly impaired^^
+INFO_COMBAT-FLAG_FF [#617]: You are protected by a force field^^
+INFO_COMBAT-FLAG_FF-CAST [#617]: You are casting a force field^^
+INFO_COMBAT-FLAG_HEAVY [#617]: Your attacks temporarily use more energon than usual^^SECRET
+INFO_COMBAT-FLAG_HIDDEN [#617]: You are hidden from sight (stealth)
+INFO_COMBAT-FLAG_HIDING [#617]: You are hiding. Like a wuss.^^SECRET
+INFO_COMBAT-FLAG_HIT-OK [#617]: You have set yourself "HIT OK" for RP purposes^^
+INFO_COMBAT-FLAG_HOLOGRAMS [#617]: Secret^^NOSHOW
+INFO_COMBAT-FLAG_INSPIRED [#617]: You are temporarily immune to fear.^^
+INFO_COMBAT-FLAG_INVULNERABLE [#617]: Plot use only: takes no damage.^^NOSHOW
+INFO_COMBAT-FLAG_LOCKON [#617]: Unable to dodge^^
+INFO_COMBAT-FLAG_MODE-LOCKED [#617]: Unable to transform^^
+INFO_COMBAT-FLAG_MODE-LOCKED2 [#617]: Unable to transform, two counts^^SECRET
+INFO_COMBAT-FLAG_PATCHED [#617]: You have been patched up during combat^^
+INFO_COMBAT-FLAG_RECALIBRATED [#617]: You have been recalibrated during combat^^SECRET
+INFO_COMBAT-FLAG_REFUELED [#617]: You have been refueled during combat^^SECRET
+INFO_COMBAT-FLAG_REFUELING [#617]: You have deployed your reserve energon tank^^SECRET
+INFO_COMBAT-FLAG_REINFORCED [#617]: You have been reinforced during combat^^SECRET
+INFO_COMBAT-FLAG_REPEAT [#617]: You are still suffering from a repeating attack^^
+INFO_COMBAT-FLAG_SABOTAGED [#617]: One of your attacks will randomly backfire^^SECRET
+INFO_COMBAT-FLAG_SAPPED [#617]: Your strength and firepower are temporarily impaired^^SECRET
+INFO_COMBAT-FLAG_SCARED [#617]: You are below your courage/endurance limit^^
+INFO_COMBAT-FLAG_SNEAKING [#617]: You are hidden from sight (Using the SNEAK ability)^^
+INFO_COMBAT-FLAG_STUNNED [#617]: Old-fashioned stun! Unable to attack or dodge^^
+INFO_COMBAT-FLAG_SUPPORTED [#617]: Someone is helping to boost your abilities^^SECRET
+INFO_COMBAT-FLAG_SUPPORTED-ACC [#617]: Someone is helping to boost your Accuracy^^SECRET
+INFO_COMBAT-FLAG_SUPPORTED-AGL [#617]: Someone is helping to boost your Agility^^SECRET
+INFO_COMBAT-FLAG_SUPPORTED-FRP [#617]: Someone is helping to boost your Firepower^^SECRET
+INFO_COMBAT-FLAG_SUPPORTED-STR [#617]: Someone is helping to boost your Strength^^SECRET
+INFO_COMBAT-FLAG_TEAMUP [#617]: Some kind of sekret^^NOSHOW
+INFO_COMBAT-FLAG_UNCON [#617]: You are unconscious!! (no combat/IC commands)^^
+INFO_COMBAT-FLAG_UNSTOPPABLE [#617]: Plot use only: Infinite energon.^^NOSHOW
+INFO_COMBAT-FLAG_V_HAS_ENGINEER [#617]: Vehicle has a firepower boost from having an engineer^^
+INFO_COMBAT-FLAG_V_HAS_GUNNER [#617]: Vehicle has an accuracy boost from having a gunner^^
+INFO_COMBAT-FLAG_V_HAS_PILOT [#617]: Vehicle has an agility boost from being PILOTed^^
+INFO_DAMAGE-TYPE_ACID [#617]: Acidic/Venomous/Corrosive Attacks^1^
+INFO_DAMAGE-TYPE_AIR [#617]: Air/Wind-based Attacks (e.g. cyclone cannon, rotorblades)^1^
+INFO_DAMAGE-TYPE_BALLISTIC [#617]: Projectile Weapons (e.g. machine gun, rifle)^1^
+INFO_DAMAGE-TYPE_ELECTRIC [#617]: Electricity-related attacks (e.g. lightning, shocks)^1^
+INFO_DAMAGE-TYPE_ENERGY [#617]: Standard Energy-based Attacks (e.g. lasers, cannons)^1^
+INFO_DAMAGE-TYPE_EXPLOSIVE [#617]: Warhead Attacks (e.g. rockets, missiles, bombs)^1^
+INFO_DAMAGE-TYPE_FIRE [#617]: Fire/Heat Attacks (e.g. fireball cannon, flame breath)^1^
+INFO_DAMAGE-TYPE_IMPACT [#617]: Physical Attacks (e.g. swords, fists, claws)^1^
+INFO_DAMAGE-TYPE_MAGNETIC [#617]: Magnetism-based attacks^1^
+INFO_DAMAGE-TYPE_MISC [#617]: Everything else!^1^RESTRICTED
+INFO_DAMAGE-TYPE_PLASMA [#617]: Plasma/superheated gas attacks (plasma rifle/pistol)^1^
+INFO_DAMAGE-TYPE_SONIC [#617]: Sound-based Attacks (e.g. sonic boom, siren/music blast)^1^
+INFO_DAMAGE-TYPE_WATER [#617]: Water/Non-Acidic-Liquid Attacks (e.g. glue gun, ice)^1^
+INFO_DEFENSE-LEVEL_AGGRESSIVE [#617]: Little to no attention to defending yourself.^0^
+INFO_DEFENSE-LEVEL_COVERED [#617]: Behind a fairly solid object.
+INFO_DEFENSE-LEVEL_EVADE [#617]: You are exceptionally quick.^^NOSHOW
+INFO_DEFENSE-LEVEL_FEARLESS [#617]: Full frontal assault. No regard for defending yourself.^0^
+INFO_DEFENSE-LEVEL_GUARDED [#617]: Paying special attention to defensive positioning.^0^
+INFO_DEFENSE-LEVEL_HIDDEN [#617]: Available only to CLOAKED or SNEAKING individuals.^0^RESTRICTED
+INFO_DEFENSE-LEVEL_NEUTRAL [#617]: This is the STANDARD Defense Level. Little to no cover.^0^
+INFO_DEFENSE-LEVEL_OFF-GUARD [#617]: You have been caught off guard or surprised.^0^RESTRICTED
+INFO_DEFENSE-LEVEL_PROTECTED [#617]: Focusing all your energies on defense.^0^
+INFO_DEFENSE-LEVEL_SCRAPPY [#617]: Relentless and determined! An unbalanced offensive stance.^^SECRET
+INFO_DEFENSE-LEVEL_SOLID [#617]: You aren't going anywhere! An unbalanced defensive stance.^^SECRET
+INFO_EFFECT_ACCURATE [#617]: Your Accuracy with this Attack is excellent.^2^
+INFO_EFFECT_AMMO [#617]: For attacks that use ammunition^0^
+INFO_EFFECT_BACKFIRE [#617]: Attack occasionally backfires: full damage to yourself.^-4^
+INFO_EFFECT_BLIND [#617]: Blinds your opponent: temporarily impairs Accuracy.^2^
+INFO_EFFECT_BLIND2 [#617]: Blinds your opponent: temporarily impairs Accuracy.^4^SECRET
+INFO_EFFECT_BREAKUP [#617]: Attack can automatically dissolve combiners^0^NOSHOW
+INFO_EFFECT_CHAIN [#617]: Allows you to do !chain attacks with this weapon^1^SECRET
+INFO_EFFECT_CONFUSE [#617]: Confuses your opponents, making their attacks go wild^5^RESTRICTED
+INFO_EFFECT_CONTROL [#617]: Allows others to use this attack (e.g. handgun)^0^RESTRICTED
+INFO_EFFECT_CORRUPT [#617]: Damages a random sub-system of your target^4^RESTRICTED
+INFO_EFFECT_CP-A [#617]: Capture Point attacks only^0^SECRET
+INFO_EFFECT_CP-B [#617]: Capture Point attacks only^0^SECRET
+INFO_EFFECT_CP-C [#617]: Capture Point attacks only^0^SECRET
+INFO_EFFECT_CP-D [#617]: Capture Point attacks only^0^SECRET
+INFO_EFFECT_CP-E [#617]: Capture Point attacks only^0^SECRET
+INFO_EFFECT_CRIPPLE [#617]: Slows your opponent: temporarily impairs Agility.^2^
+INFO_EFFECT_CRIPPLE2 [#617]: Slows your opponent: temporarily impairs Agility.^4^SECRET
+INFO_EFFECT_DISINTEGRATE [#617]: Severely damages your target's armor^6^RESTRICTED
+INFO_EFFECT_DIZZY [#617]: Temporarily mildly impair opponent's Agility and Accuracy.^2^
+INFO_EFFECT_DRAIN [#617]: Attack will deplete your target's energon.^3^
+INFO_EFFECT_EFFICIENT [#617]: Attack takes up less energon than usual^2^
+INFO_EFFECT_FAULTY [#617]: Attack jams sometimes.^-1^
+INFO_EFFECT_FEAR [#617]: Attack instantly strikes fear into your enemies^4^NOSHOW
+INFO_EFFECT_FEED [#617]: Attack refills your energon stores.^3^
+INFO_EFFECT_FLAWLESS [#617]: This attack will never miss^6^NOSHOW
+INFO_EFFECT_G-MONEY [#617]: Attack ignores armor against Combiners^1^NOSHOW
+INFO_EFFECT_GALVCANNON [#617]: Galvatron's Cannon^0^NOSHOW
+INFO_EFFECT_HEAVY [#617]: Temporarily makes your opponent's attacks OVERPOWERED^2^
+INFO_EFFECT_INACCURATE [#617]: You have poor Accuracy with this Attack^-2^
+INFO_EFFECT_LOCKON [#617]: If hit, your target is unable to dodge their next incoming attack^4^
+INFO_EFFECT_LUCKY [#617]: Raises chance of critical hits.^1^
+INFO_EFFECT_MINI-CORRUPT [#617]: Slightly damages a random sub-system of your target^2^
+INFO_EFFECT_MINI-GALVCANNON [#617]: Galvatron's Mini-Cannon^0^NOSHOW
+INFO_EFFECT_MODE-LOCK [#617]: Your target cannot transform for two turns.^5^RESTRICTED
+INFO_EFFECT_NO-ARMOR [#617]: Attack ignores armor when dealing damage^2^
+INFO_EFFECT_NO-SIZE [#617]: Attack ignores size when dealing damage^2^
+INFO_EFFECT_ONESHOT [#617]: Attack always takes 1 ammo^0^NOSHOW
+INFO_EFFECT_OUCH [#617]: Attack does partial damage to yourself when it hits.^-1^
+INFO_EFFECT_OVERPOWERED [#617]: Attack takes up more energon than usual. Also effects AMMO Attacks.^-1^
+INFO_EFFECT_OVERPOWERED2 [#617]: Even worse than OVERPOWERED. Also effects AMMO Attacks.^-2^
+INFO_EFFECT_PIERCE [#617]: Attack partially ignores armor^3^SECRET
+INFO_EFFECT_RECOIL [#617]: Attack does partial damage to yourself when fired.^-2^
+INFO_EFFECT_REPEAT [#617]: This Attack will continue to damage your target over time.^4^RESTRICTED
+INFO_EFFECT_RISKY [#617]: Attack occasionally stuns you.^-1^
+INFO_EFFECT_SAP [#617]: Weakens your opponent: temporarily impairs Strength and Firepower^2^SECRET
+INFO_EFFECT_SELF-DESTRUCT [#617]: For "object" weapons like bombs that explode after use^0^NOSHOW
+INFO_EFFECT_SHATTER [#617]: Damages your target's armor^3^
+INFO_EFFECT_STUCK [#617]: Attack occasionally makes you unable to transform.^-1^
+INFO_EFFECT_STUN [#617]: Your target is immobilized: Unable dodge or attack.^5^
+INFO_EFFECT_TKO [#617]: Target is automatically incapacitated^0^NOSHOW
+INFO_EFFECT_TRAUMA [#617]: Randomly applies Heavy, Mini-Corrupt, Drain, Corrupt, or Mode-Lock^3^
+INFO_EFFECT_UNLUCKY [#617]: Lowers chance of critical hits.^-1^
+INFO_EFFECT_UNNERVE [#617]: Attack mildly disconcerts your enemies^2^RESTRICTED
+INFO_EFFECT_VOLATILE [#617]: Randomly Cripples, Blinds, Stuns, Confuses, or Shatters^3^
+INFO_EFFECT_VULNERABLE [#617]: Attack leaves you temporarily stunned^-4^
+INFO_EFFECT_WILD [#617]: Attack occasionally goes "wild"^-2^
+INFO_PROTECTION_ACID [#617]: Acidic/Venomous/Corrosive Attacks^1^
+INFO_PROTECTION_AIR [#617]: Air/Wind-based Attacks (e.g. cyclone cannon, rotorblades)^1^
+INFO_PROTECTION_BALLISTIC [#617]: Projectile Weapons (e.g. machine gun, rifle)^10^
+INFO_PROTECTION_ELECTRIC [#617]: Electricity-related attacks (e.g. lightning, shocks)^5^
+INFO_PROTECTION_ENERGY [#617]: Standard Energy-based Attacks (e.g. lasers, cannons)^20^NOAPP
+INFO_PROTECTION_EXPLOSIVE [#617]: Warhead Attacks (e.g. rockets, missiles, bombs)^15^
+INFO_PROTECTION_FIRE [#617]: Fire/Heat Attacks (e.g. fireball cannon, flame breath)^5^
+INFO_PROTECTION_IMPACT [#617]: Physical Attacks (e.g. swords, fists, claws)^30^NOAPP
+INFO_PROTECTION_MAGNETIC [#617]: Magnetism-based attacks^1^
+INFO_PROTECTION_MISC [#617]: Everything else!^0^NOAPP
+INFO_PROTECTION_PLASMA [#617]: Plasma/superheated gas attacks (plasma rifle/pistol)^5^
+INFO_PROTECTION_SONIC [#617]: Sound-based Attacks (e.g. sonic boom, siren/music blast)^5^
+INFO_PROTECTION_WATER [#617]: Water/Non-Acidic-Liquid Attacks (e.g. glue gun, ice)^1^
+INFO_TOPIC_ABILITY [#617]: Abilities!
+INFO_TOPIC_ATTACK-TYPE [#617]: Basic Attack Categories
+INFO_TOPIC_BIN_TYPE [#617]: Used by AMMO Attacks
+INFO_TOPIC_COMBAT-FLAG [#617]: In-Combat effects (buffs/debuffs)
+INFO_TOPIC_DAMAGE-TYPE [#617]: Types of damage attacks inflict
+INFO_TOPIC_DEFENSE-LEVEL [#617]: Defense levels/postures available in combat
+INFO_TOPIC_EFFECT [#617]: Special side-effects for attacks
+INFO_TOPIC_PROTECTION [#617]: Resistances and Weaknesses (see also Damage Types)
+LIST.ABILITY [#617]: PILOT SPACE-PILOT LR_RADIO SWIM SPACE-WALK DIVE FLIGHT INSPIRE SPACE-FLIGHT CRACKSHOT SCOUT RESUPPLY REFUEL HEAL OPERATOR CONSTRUCTION REPAIR JAMMING HOLOGRAMS DEMOLITION ENHANCED_SENSES FTL FORCEFIELD WEAPONSMITH SNEAK RADAR INTERCEPTION CLOAK EVADE GENERATE SUPPORT SABOTAGE INVULNERABLE UNSTOPPABLE HEADMASTER TARGETMASTER POWERMASTER SCRAPPY SOLID CHARGE HIDE REINFORCE RECALIBRATE BODYGUARD
+LIST.ATTACK-TYPE [#617]: MELEE RANGED VELOCITY AREA-MELEE AREA-RANGED WILLPOWER MIND SCIENCE COMMAND ENDURANCE
+LIST.BIN_TYPE [#617]: STANDARD SHARED HALF DOUBLE TRIPLE NONSTANDARD
+LIST.CANCELABLE-EFFECT [#617]: DRAIN FEED REPEAT STUN CRIPPLE BLIND CORRUPT SHATTER DISINTEGRATE NO-ARMOR NO-SIZE FEAR CONFUSE ACCURATE GALVCANNON BREAK TKO PIERCE VOLATILE CRIPPLE2 BLIND2 SAP HEAVY UNNERVE MINI-CORRUPT MINI-GALVCANNON MODE-LOCK DIZZY LUCKY TRAUMA
+LIST.COMBAT-FLAG [#617]: SCARED CRIPPLED BLINDED AIMING FF FF-CAST UNCON REPEAT CLOAKED SNEAKING STUNNED HIT-OK CONFUSED COMBAT INVULNERABLE UNSTOPPABLE INSPIRED PATCHED BLINDED2 CRIPPLED2 HEAVY SABOTAGED SAPPED REFUELING REFUELED SUPPORTED-AGL SUPPORTED-ACC SUPPORTED-STR SUPPORTED-FRP SUPPORTED COVERING COVERED LOCKON HIDING REINFORCED RECALIBRATED HOLOGRAMS DIZZY MODE-LOCKED MODE-LOCKED2 V_HAS_PILOT V_HAS_GUNNER V_HAS_ENGINEER
+LIST.COMBATINFO-TOPIC [#617]: ability attack-type defense-level damage-type protection effect combat-flag bin_type
+LIST.DAMAGE-TYPE [#617]: ENERGY IMPACT BALLISTIC FIRE EXPLOSIVE AIR SONIC WATER ACID MAGNETIC PLASMA ELECTRIC MISC
+LIST.DEFENSE-LEVEL [#617]: PROTECTED GUARDED NEUTRAL AGGRESSIVE FEARLESS HIDDEN OFF-GUARD EVADE SCRAPPY SOLID
+LIST.EFFECT [#617]: ACCURATE INACCURATE EFFICIENT OVERPOWERED OVERPOWERED2 DRAIN FEED WILD VULNERABLE BACKFIRE RECOIL OUCH STUN REPEAT CRIPPLE BLIND CORRUPT SHATTER PIERCE CONFUSE NO-SIZE NO-ARMOR DISINTEGRATE VOLATILE AMMO CONTROL SELF-DESTRUCT FEAR BREAKUP TKO GALVCANNON FLAWLESS ONESHOT G-MONEY CP-A CP-B CP-C CP-D CP-E RISKY FAULTY BLIND2 CRIPPLE2 HEAVY SAP CHAIN MINI-CORRUPT UNNERVE LOCKON MINI-GALVCANNON DIZZY MODE-LOCK STUCK LUCKY UNLUCKY TRAUMA
+LIST.EXOABLE-ABILITY [#617]: Inspire Crackshot Scout
+LIST.FACTION [#617]: Autobot Decepticon Junkion Quintesson Terran Uaffiliated
+LIST.PROTECTION [#617]: ENERGY IMPACT BALLISTIC FIRE EXPLOSIVE AIR SONIC WATER ACID MAGNETIC PLASMA ELECTRIC MISC
+LIST.SPECIES [#617]: Transformer Human Alt-Human Quintesson Sharkticon Alien Junkion Vehicle Weapon Booster Base ForgedWeapon Hologram
+LIST.TALENT-REPAIR [#617]: MULTIPATCH NEUTRALIZE STATPATCH
+LIST.TALENT-SUPPORT [#617]: ACC AGL FRP STR
+LIST.VALID-WEAPONSMITH-EFFECT [#617]: ACCURATE INACCURATE DRAIN FEED WILD VULNERABLE BACKFIRE STUN REPEAT CRIPPLE BLIND CORRUPT SHATTER CONFUSE NO-SIZE NO-ARMOR DISINTEGRATE FEAR G-MONEY VOLATILE HEAVY MINI-CORRUPT UNNERVE RISKY LOCKON MODE-LOCK STUCK DIZZY LUCKY TRAUMA
+PARAM.CHAR-COST-PROTECTION-ACID [#617]: .03
+PARAM.CHAR-COST-PROTECTION-AIR [#617]: .025
+PARAM.CHAR-COST-PROTECTION-BALLISTIC [#617]: .05
+PARAM.CHAR-COST-PROTECTION-ELECTRIC [#617]: .07
+PARAM.CHAR-COST-PROTECTION-ENERGY [#617]: .50
+PARAM.CHAR-COST-PROTECTION-EXPLOSIVE [#617]: .15
+PARAM.CHAR-COST-PROTECTION-FIRE [#617]: .06
+PARAM.CHAR-COST-PROTECTION-IMPACT [#617]: .50
+PARAM.CHAR-COST-PROTECTION-MAGNETIC [#617]: .02
+PARAM.CHAR-COST-PROTECTION-MISC [#617]: .01
+PARAM.CHAR-COST-PROTECTION-PLASMA [#617]: .04
+PARAM.CHAR-COST-PROTECTION-SONIC [#617]: .07
+PARAM.CHAR-COST-PROTECTION-WATER [#617]: .01
+PARAM.DEFENSE-DEF-AGGRESSIVE [#617]: -20
+PARAM.DEFENSE-DEF-COVERED [#617]: 2
+PARAM.DEFENSE-DEF-EVADE [#617]: 0
+PARAM.DEFENSE-DEF-FEARLESS [#617]: -30
+PARAM.DEFENSE-DEF-GUARDED [#617]: 0
+PARAM.DEFENSE-DEF-HIDDEN [#617]: 0
+PARAM.DEFENSE-DEF-NEUTRAL [#617]: -10
+PARAM.DEFENSE-DEF-OFF-GUARD [#617]: -40
+PARAM.DEFENSE-DEF-PROTECTED [#617]: 10
+PARAM.DEFENSE-DEF-SCRAPPY [#617]: -10
+PARAM.DEFENSE-DEF-SOLID [#617]: 20
+PARAM.DEFENSE-OFF-AGGRESSIVE [#617]: 20
+PARAM.DEFENSE-OFF-COVERED [#617]: -2
+PARAM.DEFENSE-OFF-EVADE [#617]: -20
+PARAM.DEFENSE-OFF-FEARLESS [#617]: 30
+PARAM.DEFENSE-OFF-GUARDED [#617]: 0
+PARAM.DEFENSE-OFF-HIDDEN [#617]: 30
+PARAM.DEFENSE-OFF-NEUTRAL [#617]: 10
+PARAM.DEFENSE-OFF-OFF-GUARD [#617]: 0
+PARAM.DEFENSE-OFF-PROTECTED [#617]: -10
+PARAM.DEFENSE-OFF-SCRAPPY [#617]: 20
+PARAM.DEFENSE-OFF-SOLID [#617]: -10
+Home: Master Room(#2RF)
+Location: Master Room(#2RF)
+
+
