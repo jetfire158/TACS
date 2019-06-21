@@ -1,0 +1,129 @@
+Function Object(#671TOWXn)
+Type: THING Flags: OPAQUE WIZARD SAFE NO_COMMAND
+%rThe object which contains the code for all functions for the MUSH defined by @function. To add a new function permanently, you a) have to be a wiz :) and b) Need to set the code for the function on this object in an attribute named <FUNCTION NAME>. DO !!!NOT!!! PUT ANY ATTRIBUTES ON THIS OBJECT THAT SHOULD NOT BE @FUNCTIONS!!!%r
+Owner: Noveria(#44PWenACck)  Zone: *NOTHING*  Pennies: 10
+Parent: *NOTHING*
+Basic Lock [#44i]: Global Functions Object <GFO>(#6TWXn)
+Powers: No_Pay
+Warnings checked: 
+Created: Wed Mar 09 00:56:24 2016
+Last Modification: Wed Mar 09 00:56:27 2016
+ADDING_FUNCTION [#44]: add(%0,%1)
+ADDLIST [#44]: [@@(ARGUMENTS: 0 - DBREF # // 1 - ATTRIBUTE // 2 - NEW ITEM // 3 - DELIM)][@@(RETURNS: Nothing. Updates list on object)][attrib_set(%0/%1,squish(insert(squish(get(%0/%1)),-1,%2,%3)))]
+ADD_LIST [#44]: [fold(adding_function,%0)]
+ALIAS [#44$v]: get(%0/alias)
+ATPLACE [#44]: [switch(or(controls(%#,%0),match(rloc(%L,100),rloc(%0,100))),1,extract(get(%0/PLACENUMS), %1, 1, |),PERMISSION DENIED)]
+ATTACKNAME [#44]: switch(setr(0,grab(get(%0/ATTACKNAMES_[curmode(%0)]),%1:*,|)),,%1,after(%q0,:))
+ATTACK_OK [#44]: and(or(and(not(hasflag(%1,unconscious)),isic(%1)),hasflag(%1,ATTACK_OK)),match(loc(%1),loc(%0)))
+AVERAGE [#44]: [@@(ARGUMENTS: 0 - SPACE DELIMITED LIST)][fdiv(add_list(%0), words(%0))]
+BREAKUP-NAME [#44]: [@@(ARGUMENTS: 0 - NAME)][map(#lambda/regedit(secure(\%0),\<,,\>,), permutate(%0,,|), |, |)]
+CANCARRY [#44]: gte([mul(get(%0/stat_str_current),get(%0/size_current))],[mul(50,get(%1/size_current))])
+CAPLST [#44]: [@@(caplst(string,delimiter,output separator))][iter(lcstr(secure(%0)),capstr(##),if(%1,%1,%b),if(%2,%2,%b))]
+CHARTYPE [#44]: u(Getobj(UCOD3)/fn.get-chartype, %0)
+CHOWN [#44]: [pemit(#704,>>%@ ([name(%@)]) attempted chown %0=%1)][if(pass_lock(%@), pemit(getobj(WAIT),CHOWN017 %0=%1), #-1 YOU FAIL INTERNETS)]
+CNAME [#44]: switch(and(hasattrval(%0,MODE_NUMBER_CURRENT),hasattrval(%0,NAME_[get(%0/MODE_NUMBER_CURRENT)])),1,get(%0/name_[get(%0/MODE_NUMBER_CURRENT)]),name(%0))
+COMPARE [#44]: gte(add(inc(rand(109)),sub(%0,%1)),55)
+CONFORMAT_NAME [#44]: [getname(%0)][if(u(getobj(TACS)/fn.is-hidden, %0), %b\[Hidden\])]
+CONFORMAT_NAME2 [#44]: [getname2(%0)][if(u(getobj(TACS)/fn.is-hidden, %0), %b\[Hidden\])]
+CONNECTED [#44]: gt(conn(%0),-1)
+CONTAINS [#44]: [t(match(%0,%1))]
+COU_END [#44]: [@@(ARGUMENTS: 0 - CHAR DBREF#)][sub(get(%0/stat_end), div(mul(get(%0/stat_end), get(%0/stat_cou)),100))]
+CSECS [#44]: [Switch(And(Isnum(%0),Gte(%0,0)),1,[Setq(6,[Div(%0,29030400)]y)][Setq(5,[Mod(Div(%0,2419200),12)]m)][Setq(0,[Mod(Div(%0,604800),4)]w)][Setq(1,[Mod(Div(%0,86400),7)]d)][Setq(2,Mod(Div(%0,3600),24))][Setq(3,Mod(Div(%0,60),60))][Setq(4,Mod(%0,60))][Squish(Iter([r(6)] [r(5)] [r(0)] [r(1)],Switch(##,0*,,##)))] [rjust(r(2),2,0)]:[rjust(r(3),2,0)]:[rjust(r(4),2,0)],-1)]
+CURMODE [#44]: get(%0/STATS`CURRENT`CURMODE)
+CURRENT_NAME [#44]: xget(%0,name_[xget(%0,mode_number_current)])
+DAMAGE [#44]: if(pass_lock(%@), u(getobj(TACS)/fn.get-core-stat-pc, %0, END) ,#-3 EPIC GRAIL)
+DAYOFWEEK [#44]: switch(1, strmatch(%0, Mon), 1,strmatch(%0, Tue), 2,strmatch(%0, Wed), 3,strmatch(%0, Thu), 4,strmatch(%0, Fri), 5,strmatch(%0, Sat), 6,strmatch(%0, Sun), 7)
+DESCFUN [#44]: [eval(%@,descnormal)]%B[switch(get(zone(%@)/daytime),1,eval(%@,descday),eval(%@,descnight))]
+DOTS [#44]: [switch(%0,*... ...*,DOTS(edit(%0,... ...,...)),%0)]
+EVAL_TACS_FN [#44]: if(lmath(or, map(#lambda/hasflag(\%0, TACS_CALLER), lparent(%@))), u(getobj(TACS)/%0,%1,%2,%3,%4,%5,%6,%7,%8,%9), #-3.14 YOU BROKE IT)
+EXO_STATUS [#44]: inactive
+FACTION [#44w]: [default(%0/FACTION,Undefined)]
+FILEHEADER [#44]: [repeat(%b,6)][repeat(_,add(strlen(%0),2))]%r[repeat(_,5)][ljust(/ %0 \\, 73, _)]
+GESTALT [#44$wm]: xget(pmatch(%0),gestalt)
+GESTALTCURRENTEND [#44]: [round([mul([gestaltmaxend(%0)],[fdiv([lmath(mean,[iter([u(%0/GESTALT-MEMBERS)],[damage(##)])])],100)])],0)]
+GESTALTMAXEND [#44]: [switch(1,[gte([words([u(%0/GESTALT-MEMBERS)])],3)],[lmath(add,[remove([iter([u(%0/GESTALT-MEMBERS)],[get(##/STAT_END)])],[lmath(min,[iter([u(%0/GESTALT-MEMBERS)],[get(##/STAT_END)])])] )])],[lmath(add,[iter([u(%0/GESTALT-MEMBERS)],[get(##/STAT_END)])])])]
+GESTALT_NAME [#44]: iter(xget(#4189,ALL_GESTALTS),switch(contains(xget(##,MEMBERS),pmatch(%0)),1,name(##)),,)
+GET-ALT-LOOK-NAMES [#44]: [@@(ARGUMENTS: 0 - ROOM DBREF#)][sortkey(#lambda/words(before(\%0,^)), setunion(iter(setunion(lcon(%0), lexits(%0)), [stripansi(getname(##))]^##^1|[if(alias(##),[alias(##)]^##^0|)][map(#lambda/\%0^##^0, breakup-name(stripansi(getname(##))), |, |)], ,|),,|), n, |)]
+GET-ROOM-CONTENTS [#44]: [u(getobj(room)/get-contents.fn,%0,%1)]
+GETNAME [#44]: getname2(%0)
+GETNAME2 [#44]: [@@(TACS VERSION)][@@(ARGUMENTS: 0 - TARGET)][switch(u(getobj(TACS)/curmode, %0),, name(%0), #-*, name(%0), 1, name(%0), switch(u(getobj(TACS)/fn.get-current-mode-stat, %0, NAME),, name(%0), u(getobj(TACS)/fn.get-current-mode-stat, %0, NAME)))]
+GETNAME_LEGACY [#44]: [@@(ARGUMENTS: 0 - TARGET)][switch(get(%0/NAME_[get(%0/MODE_NUMBER_CURRENT)]),,name(%0),_*,name(%0),#$)]
+GETOBJ [#44]: [@@(ARGUMENTS: 0 - IMOD (important mush object DB) 'tag')][u(#6903/getobj.fn,%0)]
+GETOBJ_ATTR [#44]: [@@(ARGUMENTS: 0 - IMOD (important mush object DB) 'tag' // 1 - ATTRIB NAME)][if(pass_lock(%@), get(u(#6903/getobj.fn,%0)/%1), #-1 YOUR HAT IS ON BACKWARDS)]
+GETRANK [#44]: [xget(#3824,rank(%0))]/[trunc(rank(%0))]
+GETRANK2 [#44]: [setq(Faction,faction(%0))][setr(Rank,get(%0/RANKS`%q<Faction>))]/[if(hasattrval(%0,TITLE`%q<Faction>),get(%0/TITLE`%q<Faction>),get(#4687/RANK_%q<Faction>_[rjust(%q<Rank>,2,0)]))]
+GETZONE [#44]: zone(%0)
+GOTOHELL [#44]: tel(%0, #666)
+HAS-ABILITY [#44]: if(pass_lock(%@), lmath(or, map(#lambda/u(getobj(TACS)/fn.has-ability, %0, \%0), %1)) ,#-4 EPIC TRAIL)
+HASABILITY [#44]: if(pass_lock(%@), u(getobj(TACS)/fn.has-ability, %0, %1) ,#-5 EPIC RAIL)
+HASATTACK [#44]: [if(pass_lock(%@),[switch([match([get(%0/attacks_current)],%1)],0,0,1)],#-1 NICE TRY JERKY)]
+HASDIVISION [#44]: [t(match(get(%0/DIVISION`[get(%0/FACTION)]),%1))]
+HASFACTION [#44]: [switch(%1,EDC,cor(match(faction(%0),%1),cand(match(faction(%0),Terran),hasdivision(%0,EDC))),match(faction(%0),%1))]
+HASGROUP [#44]: or(not(comp(lcstr(get(%0/GROUP)),lcstr(%1))),not(comp(lcstr(get(%0/SUBGROUP)),lcstr(%1)))
+HASRANK [#44]: [@@(todd wuz here)][gte(val(getrank2(%0,get(%0/faction))),%1)]
+HASSKILL [#44]: if(pass_lock(%@), strmatch(u(getobj(TACS)/fn.get-core-stat, %0, Current, Skills), *%1*), #-6 EPIC SAIL)
+HASSPECIES [#44]: match(xget(%0,species),%1)
+HAS_DUPLICATES [#44]: lmath(or, map(#lambda/gt(words(matchall(%0, \%0)), 1), %0))
+HEADER [#44]: [center([switch(%0,,,\[ [ansi(hw,%0)] \])],78,=)]
+HEADER2 [#44]: [center(\[%b[ansi(h,[iter([edit(%0,_,%b)],[capstr(##)],,%b)])][if(t(%1),%b--%b[ansi(h,[iter([edit(%1,_,%b)],[capstr(##)],,%b)])],)]%b\],78,=)]
+HTML_LIST [#44]: [iter(lcon(loc(%0)),switch(get(##/html),1,##)]
+ICTIME [#44]: [convsecs(add(u(#1898/icstarttime),mul(sub(convtime(time()),u(#1898/icstartictime)),u(#1898/ictorlcompfactor))))]
+IDLE_FN [#44]: if(lt(setr(I,idle(%0)),60),%qIs,[div(%qI,60)]m [mod(%qI,60)]s)
+INJURED [#44]: [if(pass_lock(%@),[switch(tacs_get_stat(%0, Current, END),<16,2,<[div(tacs_get_stat(%0, Max, END),2)],1,0)],#-1 NO SOUP FOR YOU)]
+ISALLY [#44]: t(match(get(%0/ALLY),%1,|))
+ISFEATURE [#44]: contains(xget(#4189,ALL_FEATURE_CHARACTERS),%0)
+ISIC [#44]: [hasattrp([room(%0)],ic)]
+ISOFFICER [#44]: [gt(default(%0/RANKS`[faction(%0)],0),5)]
+IS_DAYTIME [#44]: [switch(get(zone(%l)/daytime),1,1,0)]
+IS_HIDDEN [#44]: u(getobj(TACS)/fn.is-hidden, %0)
+IS_HIT [#44]: [u(#8749/IS_HIT.FN,%0,%1)]
+KILL_WORDS [#44]: [switch([rand(3)]%0,0,,1,,2,,0*,%0,...)]
+LFIX [#44]: ljust(mid(%0,0,%1),%1)
+LIST_COMMANDS [#44]: iter(regrep(%0, *, ^\\$),[before(after(get(%0/##),$),:)],,|)
+LIST_NAMES [#44]: [setq(0,secure(%0))][switch(words(%q0),1,[name(squish(%q0))],[iter(%q0,[switch(lt(#@,words(%q0)),1,[name(##)][switch(and(gt(words(%q0),2),lt(#@,dec(words(%q0)))),1,{,})],0,and%b[name(##)])])])]
+LOCATE-EXACT-MATCH [#44]: [@@(ARGUMENTS: 0 - LOOKER DBREF# // 1 - NAME TO MATCH)][if(setr(0,graball(filter(#lambda/eq(words(\%0), words(%1)), setunion(get-alt-look-names(loc(%0)), get-alt-look-names(%0), |, a, |) ,|),%1^*^1,|)),if(gt(words(%q0,|),1),#-2,[index(%q0,^,2,1)]),#-1)]
+LOCATE2 [#44]: [@@(ARGUMENTS: 0 - LOOKER DBREF# // 1 - NAME TO MATCH)][@@(RETURNS: #-1 - NO MATCH FOUND // #-2 - MULTIPLE MATCHES FOUND // DBREF#)][switch(locate(%0, %1, *), #-1, locate3(%0, %1), #-2, #-2, #$)]
+LOCATE3 [#44]: [@@(ARGUMENTS: 0 - LOOKER DBREF# // 1 - NAME TO MATCH)][@@(RETURNS: #-1 - NO MATCH FOUND // #-2 - MULTIPLE MATCHES FOUND // DBREF#)][if(setr(0,graball(filter(#lambda/eq(words(\%0), words(%1)), setunion(get-alt-look-names(loc(%0)), get-alt-look-names(%0), |, a, |),|),%1*,|)),if(gt(words(%q0,|),1), [locate-exact-match(%0, %1)], [index(%q0,^,2,1)]),#-1)]
+LOCATE_TEMP [#44]: [@@(ARGUMENTS: 0 - LOOKER DBREF# // 1 - NAME TO MATCH)][@@(RETURNS: #-1 - NO MATCH FOUND // #-2 - MULTIPLE MATCHES FOUND // DBREF#)][if(setr(0,graball(get-alt-look-names(loc(%0)),%1*,|)),if(gt(words(%q0,|),1),#-2,after(%q0,^)),#-1)]
+LOOK2 [#44]: [ansi(h,[name([setr(0,[loc(%L)])])])]%r[u(%q0/desc)]%rRoom Contents: %r%b[iter([lvplayers(%q0)],[name(##)]%r)]%rObvious exits: %r%b[iter([lexits(%q0)],[name(##)]%r)]
+MAILCURF [#44$cw+]: 0
+MELEE [#44]: [setq(0,[ADD(DIV(GET(%0/STAT_STR_CURRENT),get(#4434/%2_DIVISOR)),mul(3,sub(get(%0/size_current),get(%1/size_current))),rand(4))])][switch(sign(r(0)),1,r(0),[add(1,rand(5))])]
+MUTTER [#44]: [edit(DOTS(SELECT_WORDS(%0)),%b...,...)]
+MUTTER_FROM [#44]: [switch(%0,%1,switch(%2,:*,{You sense "[name(%0)] [delete(%2,0,1)]"},;*,{You sense "[name(%0)][delete(%2,0,1)]"},{You mutter to yourself, "%2"}),switch(%2,:*,{[name(%1)] senses "[name(%0)] [delete(%2,0,1)]"},;*,{[name(%1)] senses "[name(%0)][delete(%2,0,1)]"},{You whisper "%2" to [name(%1)].}))]
+MUTTER_TO [#44]: [switch(%2,:*,{You sense [name(%0)] [delete(%2,0,1)]},;*,{You sense [name(%0)][delete(%2,0,1)]},{[name(%0)] whispers "%2"})]
+MZONE [#44]: [@@(Mobile zone location retrieval. Given a room dbref\, returns the room dbref of the associated mobile object's location.)][room(get(zone(%0)/OBJECT))]
+NORMRAND [#44]: u(getobj(TACS)/fn.normal-rng, %0, %1)
+OCCURRENCES [#44]: [words(matchall(secure(%0),secure(%1)))]
+PAIN [#44]: [u(#8749/PAIN.FN,%0,%1,%2,%3)]
+PASS_LOCK [#44]: cor(orflags(%0,Wr),hasflag(owner(%0),WIZARD),haspower(owner(%0),builder))
+PERCENT [#44]: [if(eq(%1,0),--,round(mul(fdiv(%0,%1),100),%2))]
+PERMUTATE [#44]: [@@(ARGUMENTS: 0 - LIST // 1 - LIST DELIMITER // 2 - RESULT DELIMITER)][sortkey(#lambda/words(\%0, %1), setunion(iter(lnum(words(%0, %1)), iter(lnum(words(%0, %1)), index(%0, , inum(0), inum(1)),,%2),,%2),,%2), n, %2)]
+PLACEINFO [#44]: [switch(or(controls(%#,%0),match(rloc(%L,100),rloc(%0,100))),1,extract(get(%0/PLACE%1),match(NAME MAXPLACES CURPLACES FIXED FULL EMPTY JOIN OJOIN DEPART ODEPART PREFIX,%2),1,|),PERMISSION DENIED)]
+PLACES [#44]: switch(0,gt(get(%0/placesmax),0),,rest(lnum(inc(get(%0/placesmax)))))
+PLANET [#44]: [setq(L,if(isic(%0),loc(%0),default(%0/LOCATION_CURRENT,#92)))][setq(R,switch(type(%qL),ROOM,%qL,room(%qL)))][if(match(zone(%qR),#-1),??,setinter(get(#1688/PLANETS),lparent(zone(%qR))))]
+PLANETTIME [#44]: [u(zone(%l)/convplanet,ictime())]
+PLAYERID [#44]: u(getobj(PDC)/fn.find-playerid-by-char, %0)
+PRIV_EXEC [#44]: [@@({[pemit(#704,>>%@ ([name(%@)]) attempted exec_priv '%0')]})][if(pass_lock(%@),switch(%+,1,%0(),2,%0(%1),3,%0(%1,%2)),#-1 YOUR PARROT FLIES AWAY)]
+RANGED [#44]: [setq(0,[ADD(DIV(GET(%0/STAT_FRP_CURRENT),get(#4434/%2_DIVISOR)),sub(get(%0/size_current),get(%1/size_current)),rand(4))])][switch(sign(r(0)),1,r(0),[add(1,rand(5))])]
+REMLIST [#44]: [@@(ARGUMENTS: 0 - DBREF # // 1 - ATTRIBUTE // 2 - ITEM TO REMOVE// 3 - DELIM)][@@(RETURNS: Nothing. Updates list on object)][attrib_set(%0/%1,remove(get(%0/%1),%2,%3))]
+RFIX [#44]: rjust(mid(%0,0,%1),%1)
+ROOM-TYPE [#44]: [setinter(lparent(%0),lvthings(#5492))]
+ROUND_PAIN [#44]: mul(sign(%0), abs(if(lt(%0, 0), floor(%0), ceil(%0))))
+SEASON [#44]: [switch(extract(ictime(),2,1),Jan,1,Feb,1,Mar,2,Apr,2,May,2,Jun,3,Jul,3,Aug,3,Sep,4,Oct,4,Nov,4,Dec,1)]
+SELECT_WORDS [#44]: [switch(%0,*<*>*,[KILL_WORDS(before(%0,<))] [before(after(%0,<),>)] [SELECT_WORDS(after(%0,>))],KILL_WORDS(%0))]
+SETADD [#44]: [@@(ARGUMENTS: 0-DBREF // 1-ATTRIB // 2-VALUE // 3-MULTIPLIER)][if(hasattrp(%0,%1),[set(%0,%1:[add(get(%0/%1),mul(%2,%3))])],[set(%0,%1:[mul(%2,%3)])])]
+SIGNO [#44]: if(gt(%0, 0), +%0, %0)
+STATUS [#44$wm]: inactive
+SUBHEADER [#44]: [center(switch(%0,,,\[ [ansi(hw,%0)] \]),78,-)]
+TACS_GET_AUX_STAT [#44]: if(pass_lock(%@), u(getobj(TACS)/fn.get-aux-stat, %0, %1),#-6 EPIC DETAIL)
+TACS_GET_COMBAT_FLAGS [#44]: if(pass_lock(%@), u(getobj(TACS)/fn.get-public-combat-flags, %0),#-2 EPIC FLAIL)
+TACS_GET_STAT [#44]: if(pass_lock(%@), u(getobj(TACS)/fn.get-either-stat, %0, %1, %2, %3),#-1 EPIC FAIL)
+TACS_SET_AUX_STAT [#44]: if(pass_lock(%@), u(getobj(TACS)/fn.set-aux-stat, %0, %1, %2),#-7 EPIC ENTRAIL)
+TITLE [#44$w]: [setq(Rank,get(%0/RANKS`[setr(Faction,get(%0/faction))]))][default(%0/TITLE`%q<Faction>,default(#4687/RANK_%q<Faction>_[rjust(%q<Rank>,2,0)],))]
+TRIGGER [#44]: [@@({[pemit(#704,>>%@ ([name(%@)]) attempted trigger %0/'%1')]})][if(pass_lock(%@), pemit(getobj(WAIT),TRIGGER5516 %0=%1=%2=%3=%4=%5=%6=%7=%8=%9), #-1 YOU FAIL INTERNETS)]
+VEHICLES [#44]: #8436 #6188 #6187
+WAIT [#44]: [@@({[pemit(#704,>>%@ ([name(%@)]) attempted wait %0/'%1')]})][if(pass_lock(%@), pemit(getobj(WAIT),WAIT8231 %0=%1), #-1 YOU FAIL INTERNETS)]
+WEAPONINFO [#44]: [switch(%0,Slap,0,Blade,0,Bite,0,Punch,0,Claw,0,Kick,0,pistol,0,taser,0,Disruptor,0,Fire,1,Laser,2,Sword,2,Smash,2,Slash,2,Ballistic,3,Compressed_Air,3,Axe,3,Blow,3,Evisceration,3,Electricity,4,Sonics,4,Energy_Sword,4,Rocket,5,Gauss,5,Energy_Axe,5,Ram,6,Plasma,6,Missile,8,Crush,8,Cannon,10,Area_Ranged,6,Repeating,6,Area_Melee,6,Drain,Drain,Special,Stun,Cannon2,Yikes,Galvcannon,Run Away,G_Kick,3,G_Punch,3,G_Blow,5,G_Sword,8,G_Cannon,Badass,G_Cannon,Badass,Unknown)]
+WHICHPLACE [#44]: [switch(or(controls(%#,%0),match(rloc(%L,100),rloc(%0,100))),1,match(get(%0/PLACENUMS), *%1%b*, |),PERMISSION DENIED)]
+WRAP [#44]: %0
+
