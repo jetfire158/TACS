@@ -1,0 +1,507 @@
+In digging through my logs, I found mention that the racetracks weren't working properly, possibly to do with IWO (Independent Weapon Object) as speculated on the staff channel. Also, there's no real parent per se… all the racetracks are clones.
+
+ 
+
+Keep in mind that the following code:
+
+1)    is for a filled racetrack, not an empty one.
+
+2)    Is for a different code base (pennmush not mux). They're similar but not the same.
+
+3)    May or may not use functions that are 2K5 globals or that are called from other objects (like TACS).
+
+ 
+
+ 
+
+@@ Velocitron Oilsport Racetrack (#10178)
+
+@create Velocitron Oilsport Racetrack
+
+@link Velocitron Oilsport Racetrack = #7930
+
+@set Velocitron Oilsport Racetrack = OPAQUE
+
+@set Velocitron Oilsport Racetrack = AUDIBLE
+
+@set Velocitron Oilsport Racetrack = ENTER_OK
+
+@set Velocitron Oilsport Racetrack = TACS_CALLER
+
+&CMD.BOOT Velocitron Oilsport Racetrack=$!remove *:@assert or(orflags(%#, Wr), match(v(REFEREE), %#))=th u(msg, %#, Only an admin or race referee can do that.) ;; @assert or(isdbref(%0), setr(0, pmatch(%0)))=th u(msg, %#, I can't find a player or object# with '%0') ;; @assert match(v(list.racers), if(%q0, %q0, %0)=th u(msg, %#, [name(if(%q0, %q0, %0))] is not in the race.) ;; th [u(msg, %#, Removed [name(if(%q0, %q0, %0))] from the race.)] [remlist(%!, LIST.RACERS, if(%q0, %q0, %0))]
+
+&CMD.HELP Velocitron Oilsport Racetrack=$!racehelp:@pemit %#=u(fn.racehelp)
+
+&CMD.INIT Velocitron Oilsport Racetrack=$!init:@assert or(orflags(%#, Wr), match(v(REFEREE), %#))=th u(msg, %#, Only an admin or race referee can do that.) ;; th [u(msg, %#, Race Track is initialized. Ready to begin a new race., 1)] [iter(v(list.racers), [attrib_set(%!/RACEINFO`##`SPOT, 0)] [attrib_set(%!/RACEINFO`##`TURN, 0)] [eval_tacs_fn(fn.set-core-stat, ##, Current, Energon, eval_tacs_fn(fn.get-core-stat, ##, Max, Energon))] [eval_tacs_fn(fn.set-the-combat-flag, ##)],,)] [wipe(%!/ATTACKER**)] [wipe(%!/RAMMED**)] [wipe(%!/PASSED**)]
+
+&CMD.JOIN-RACE Velocitron Oilsport Racetrack=$!addme:@break match(v(list.racers), %#)=th u(msg, %#, You're already in the race.) ;; th [u(msg, %#, [getname(%#)] joins the race., 1)] [attrib_set(%!/RACEINFO`%#`SPOT, 0)] [addlist(%!, LIST.RACERS, %#)]
+
+&CMD.LEAVE-RACE Velocitron Oilsport Racetrack=$!delme:@assert match(v(list.racers), %#)=th u(msg, %#, You're not in the race.) ;; th [u(msg, %#, [getname(%#)] leaves the race., 1)] [remlist(%!, LIST.RACERS, %#)]
+
+&CMD.LIST-PARAMS Velocitron Oilsport Racetrack=$!listparams:th [u(msg, %#, map(#lambda/after(\%0, .), lattr(%!/PARAM.*)))]
+
+&CMD.NEW-ROUND Velocitron Oilsport Racetrack=$!new round:@assert or(orflags(%#, Wr), match(v(REFEREE), %#))=th u(msg, %#, Only an admin or race referee can do that.) ;; th [u(msg, %#, The racers speed around the track\, and the scoreboard lights up with the new race standings..., 1)] [iter(v(list.racers), u(fn.move, ##),,)] [wipe(%!/ATTACKER**)] [wipe(%!/RAMMED**)] [wipe(%!/PASSED**)]
+
+&CMD.PASS Velocitron Oilsport Racetrack=$^\!(pass|rest)$:@pemit %#=Sorry! You can't use this command during a race. To regain energon you can "slow down" by going into PROTECTED or GUARDED defense-levels! Conversely you will spend more energon if you "speed up".
+
+@set Velocitron Oilsport Racetrack/CMD.PASS=regexp
+
+&CMD.PLACEMENTS Velocitron Oilsport Racetrack=$!placements:@pemit %#=u(fn.display-racers, spot, %#)
+
+&CMD.POSITIONS Velocitron Oilsport Racetrack=$!positions:@pemit %#=u(fn.display-racers, position, %#)
+
+&CMD.REFEREE Velocitron Oilsport Racetrack=$!referee *:@assert or(orflags(%#, Wr), match(v(REFEREE), %#))=th u(msg, %#, Only an admin or race referee can do that.) ;; @assert isdbref(setr(0, pmatch(%0)))=th u(msg, %#, I can't find a player named '%0') ;; th [u(msg, %#, %N has made [ansi(h,name(%q0))] a referee.)] [addlist(%!, REFEREE, %q0)]
+
+&CMD.SET-PARAM Velocitron Oilsport Racetrack=$!param *=*:@assert or(orflags(%#, Wr), match(v(REFEREE), %#))=th u(msg, %#, Only an admin or race referee can do that.) ;; @assert hasattr(%!, PARAM.%0)=th u(msg, %#, Error - No parameter named %0. Type [ansi(h,!listparams)] for a list of race parameters.) ;; @assert and(gt(%1, 0), isint(%1))=th u(msg, %#, Error - %0 is not a valid parameter. Must be an integer greater than zero.) ;; th [attrib_set(%!/PARAM.%0, %1)] [u(msg, %#, Setting parameter [ansi(h, ucstr(%0))] to %1.)]
+
+&DESCRIBE Velocitron Oilsport Racetrack=[header(Welcome to the [ansi(hr,OILBATH)])]%r%tWhile most of Velocitron seems bright and cheerful, this penal oval-shaped race track has seen better days and has an accompanying reinforced, bulletproof grandstand. The track is heavily stained with the life's blood, ichor, and fuel of every racing species in the galaxy, and there are numerous trapdoors built into the sidewalls and track floor. There is no obvious way out of the track for the racers or the pit crew.  Shady bookies wander around offering shady deals to the multitudes of myriad aliens flocking to watch the competition, and souvenir sellers hawk pieces of the fallen racers.%r%r[u(fn.display-race-conditions)]%r%r[center(Type [ansi(h,!racehelp)] for a list of commands, 78)]%r%r[center(Type [ansi(h,!placements)] for current standings, 78)]%r[header()]
+
+@set Velocitron Oilsport Racetrack/DESCRIBE=no_command visual prefixmatch public nearby
+
+&FN.ADVANCE-SPOT Velocitron Oilsport Racetrack=[setadd(%!, RACEINFO`%0`SPOT, setr(2, u(fn.calculate-advancement-points, %0, %1)), 1)] [eval_tacs_fn(fn.deduct-energon, %0, u(FN.CALCULATE-ENERGON-CONSUMPTION, %0))] [u(msg, %0, Advanced %q2 positions.)] [u(fn.check-for-victory, %0)]
+
+&FN.CALCULATE-ADVANCEMENT-POINTS Velocitron Oilsport Racetrack=max(add(div(add(u(fn.get-velocity-points, %0), u(fn.get-stance-modifier, %0)), if(u(fn.was-attacker, %0), 2, 1)), u(fn.get-random-movement-points)), 0)
+
+&FN.CALCULATE-ENERGON-CONSUMPTION Velocitron Oilsport Racetrack=ceil(mul(u(fn.get-nominal-energon-level, %0), fdiv(u(fn.get-stance-modifier, %0), 10)))
+
+&FN.CHECK-FOR-VICTORY Velocitron Oilsport Racetrack=if(gt(v(RACEINFO`%0`SPOT), mul(v(PARAM.LAPS-PER-RACE), v(PARAM.POSITIONS-PER-LAP))), [u(msg, %0, [getname(%0)] crosses the finish line!, 1)] [@@([remlist(%!, LIST.RACERS, %0)])]
+
+&FN.DISPLAY-RACE-CONDITIONS Velocitron Oilsport Racetrack=[subheader(Race Conditions)]%r[table(iter(POSITIONS-PER-LAP LAPS-PER-RACE ENERGON-PER-TURN MAX-BASE-VELOCITY, [ljust([ansi(h,edit(##,-,%b))]:, 20)][v(PARAM.##)],,|), 38, 78, |)]%r[subheader()]
+
+&FN.DISPLAY-RACERS Velocitron Oilsport Racetrack=[header(Racetrack Attack!)]%r%b%b[ljust(ansi(h,Racer),30)][ljust(ansi(h,Pos), 4)][ljust(ansi(h,Lap), 4)][ljust(ansi(h,Defense-Level), 15)][ansi(h, )]%r[subheader()][iter(u(fn.list-racers-by-%0),%r[switch(1, strmatch(##, %1), [ansi(hy,->)], u(fn.is-within-ramming-distance, ##, %1), %b[ansi(h,+)], %b%b)][ljust(left(ansi(faction-ansi(##, %1), getname(##)), 29), 30)][ljust(u(fn.get-position, ##), 4)][ljust(u(fn.get-lap, ##), 4)][ljust(ucstr(eval_tacs_fn(fn.get-core-stat, ##, Current, Defense-Level)), 15)][ljust(switch(1, u(fn.was-rammed, ##), CRASHED, u(fn.was-attacker, ##), RAM ATTEMPT, u(fn.has-passed, ##), PASSED, --), 12)],,)]%r%r[ansi(h,%b+)] Racer within ramming distance%r[ansi(hy,->)] You!%r[header(Sorted by [switch(%0, Spot, Leadership, Position, Track Position, Something)])]
+
+&FN.GET-LAP Velocitron Oilsport Racetrack=div(v(RACEINFO`%0`SPOT), v(PARAM.POSITIONS-PER-LAP))
+
+&FN.GET-NOMINAL-ENERGON-LEVEL Velocitron Oilsport Racetrack=eval_tacs_fn(fn.get-core-stat, %0, Max, Energon)
+
+&FN.GET-POSITION Velocitron Oilsport Racetrack=mod(v(RACEINFO`%0`SPOT), v(PARAM.POSITIONS-PER-LAP))
+
+&FN.GET-RANDOM-MOVEMENT-POINTS Velocitron Oilsport Racetrack=first(shuffle(v(LIST.RANDOM-NUMBERS)))
+
+&FN.GET-STANCE-MODIFIER Velocitron Oilsport Racetrack=div(eval_tacs_fn(fn.get-defense-level-attack-modifier, eval_tacs_fn(fn.build-attack-object, %0)), 10)
+
+&FN.GET-VELOCITY-POINTS Velocitron Oilsport Racetrack=min(div(eval_tacs_fn(fn.get-current-mode-stat, %0, Vel), 10), v(PARAM.MAX-BASE-VELOCITY))
+
+&FN.HAS-ENOUGH-ENERGON Velocitron Oilsport Racetrack=gte(eval_tacs_fn(fn.get-core-stat, %0, Current, Energon), v(PARAM.ENERGON-PER-TURN))
+
+&FN.HAS-PASSED Velocitron Oilsport Racetrack=hasattr(%!, PASSED`%0)
+
+&FN.IS-WITHIN-RAMMING-DISTANCE Velocitron Oilsport Racetrack=lte(abs(sub(u(fn.get-position, %0), u(fn.get-position, %1))), 2)
+
+&FN.LIST-RACERS-BY-POSITION Velocitron Oilsport Racetrack=sortkey(#lambda/u(fn.get-position, \%0), v(list.racers))
+
+&FN.LIST-RACERS-BY-SPOT Velocitron Oilsport Racetrack=sortkey(#lambda/v(RACEINFO`\%0`SPOT), v(list.racers))
+
+&FN.LOCAL-ATTACK-LOCK Velocitron Oilsport Racetrack=[u(fn.is-within-ramming-distance, eval_tacs_fn(AOBJ, %0, attacker), %1)]
+
+&FN.LOCAL-ATTACK-LOCK-REASON Velocitron Oilsport Racetrack=You need to be within 2 positions of your target to ram them.
+
+&FN.LOCAL-ATTACK-POSTPROCESS Velocitron Oilsport Racetrack=[setq(0, eval_tacs_fn(AOBJ, %0, Attacker))] [setq(1, eval_tacs_fn(AOBJ, %0, Target))] [attrib_set(%!/ATTACKER`%q0, %q1)] [u(msg, %q0, You have attacked [getname(%q1)]. Your movement rate will be halved next turn.)] [switch(%1, hit, [attrib_set(%!/RAMMED`%q1, %q0)] [u(msg, %q1, You have been hit by [getname(%q0)]. Your movement rate will be zero next turn.)], [u(msg, %q1, You have been attacked by [getname(%q0)] but [subj(%q0)] missed. Your movement rate will be unaffected next turn.)])]
+
+&FN.MOVE Velocitron Oilsport Racetrack=switch(1, u(fn.was-rammed, %0), u(msg, %0, You recover from your crash.), not(u(fn.has-enough-energon, %0)), u(msg, %0, You don't have enough energon to race!), eval_tacs_fn(fn.has-combat-flag, %0, UNCON), u(msg, %0, Unconscious people don't go very far.), u(fn.was-attacker, %0), [u(msg, %0, Your movements are slowed slightly due to your earlier collision.)] [u(fn.advance-spot, %0)], u(fn.advance-spot, %0))
+
+&FN.RACEHELP Velocitron Oilsport Racetrack=[header(Race Track Commands)][iter(v(list.help),%r%b[ljust(ansi(h, before(##,^)), 16)][after(##,^)],|,)]%r[header()]
+
+&FN.WAS-ATTACKER Velocitron Oilsport Racetrack=hasattr(%!, ATTACKER`%0)
+
+&FN.WAS-RAMMED Velocitron Oilsport Racetrack=hasattr(%!, RAMMED`%0)
+
+&LIST.HELP Velocitron Oilsport Racetrack=!addme^Adds you to the current race|!delme^Removes you from the current race|!placements^Shows who's winning|!positions^Lists the current SPATIAL track position of each participant|!referee <name>^(Admin) Make someone a referee|!init^(Referee) Start a new race. Resets energon\, positions.|!new round^(Referee) Advances the race by one turn|!remove <name>^(Referee) Remove a player from the race|!listparams^List modifiable race parameters|!param <param>=<setting>^(Referee) Change Race Parameters
+
+&LIST.RACERS Velocitron Oilsport Racetrack=#1913 #6771 #967 #1878
+
+&LIST.RANDOM-NUMBERS Velocitron Oilsport Racetrack=-1 0 1
+
+&MSG Velocitron Oilsport Racetrack=if(%2, remit(if(hastype(%0, EXIT), home(%0), loc(%0)),[ansi(hg,Race:)] %1), pemit(%0,[ansi(hg,Race:)] %1))
+
+&OLD.FN.ADVANCE-SPOT Velocitron Oilsport Racetrack=[setadd(%!, RACEINFO`%0`SPOT, setr(2, u(fn.calculate-advancement-points, %0, %1)), 1)] [eval_tacs_fn(fn.deduct-energon, %0, v(PARAM.ENERGON-PER-TURN))] [u(msg, %0, Advanced %q2 positions.)] [u(fn.check-for-victory, %0)]
+
+&PARAM.ENERGON-PER-TURN Velocitron Oilsport Racetrack=8
+
+&PARAM.LAPS-PER-RACE Velocitron Oilsport Racetrack=3
+
+&PARAM.MAX-BASE-VELOCITY Velocitron Oilsport Racetrack=100
+
+&PARAM.POSITIONS-PER-LAP Velocitron Oilsport Racetrack=20
+
+&RACEINFO Velocitron Oilsport Racetrack=
+
+&RACEINFO`#10080 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#10080`SPOT Velocitron Oilsport Racetrack=31
+
+&RACEINFO`#10241 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#10241`SPOT Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#10241`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#10561 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#10561`SPOT Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#10561`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#10881 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#10881`SPOT Velocitron Oilsport Racetrack=28
+
+&RACEINFO`#10881`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#11105 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#11105`SPOT Velocitron Oilsport Racetrack=31
+
+&RACEINFO`#11105`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1180 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1180`SPOT Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1180`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1219 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1219`SPOT Velocitron Oilsport Racetrack=68
+
+&RACEINFO`#1219`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1245 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1245`SPOT Velocitron Oilsport Racetrack=55
+
+&RACEINFO`#1245`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#16 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#16`SPOT Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#16`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#179 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#179`SPOT Velocitron Oilsport Racetrack=66
+
+&RACEINFO`#179`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1805 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1805`SPOT Velocitron Oilsport Racetrack=7
+
+&RACEINFO`#1805`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1808 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1808`SPOT Velocitron Oilsport Racetrack=149
+
+&RACEINFO`#1808`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1878 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1878`SPOT Velocitron Oilsport Racetrack=69
+
+&RACEINFO`#1878`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1913 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1913`SPOT Velocitron Oilsport Racetrack=71
+
+&RACEINFO`#1913`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1952 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1952`SPOT Velocitron Oilsport Racetrack=50
+
+&RACEINFO`#1957 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1957`SPOT Velocitron Oilsport Racetrack=59
+
+&RACEINFO`#1957`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1986 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1986`SPOT Velocitron Oilsport Racetrack=34
+
+&RACEINFO`#1986`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1988 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1988`SPOT Velocitron Oilsport Racetrack=7
+
+&RACEINFO`#1988`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1992 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1992`SPOT Velocitron Oilsport Racetrack=72
+
+&RACEINFO`#1992`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1995 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1995`SPOT Velocitron Oilsport Racetrack=17
+
+&RACEINFO`#1995`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1997 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1997`SPOT Velocitron Oilsport Racetrack=80
+
+&RACEINFO`#1997`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1998 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1998`SPOT Velocitron Oilsport Racetrack=49
+
+&RACEINFO`#1998`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#1999 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#1999`SPOT Velocitron Oilsport Racetrack=68
+
+&RACEINFO`#1999`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#2013 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#2013`SPOT Velocitron Oilsport Racetrack=50
+
+&RACEINFO`#2013`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#2512 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#2512`SPOT Velocitron Oilsport Racetrack=8
+
+&RACEINFO`#2798 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#2798`SPOT Velocitron Oilsport Racetrack=99
+
+&RACEINFO`#2798`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#31 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#31`SPOT Velocitron Oilsport Racetrack=12
+
+&RACEINFO`#31`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#3272 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#3272`SPOT Velocitron Oilsport Racetrack=36
+
+&RACEINFO`#3272`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#3494 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#3494`SPOT Velocitron Oilsport Racetrack=57
+
+&RACEINFO`#3494`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#3508 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#3508`SPOT Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#3535 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#3535`SPOT Velocitron Oilsport Racetrack=22
+
+&RACEINFO`#3535`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#4171 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#4171`SPOT Velocitron Oilsport Racetrack=121
+
+&RACEINFO`#4171`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#4537 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#4537`SPOT Velocitron Oilsport Racetrack=80
+
+&RACEINFO`#4537`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#481 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#481`SPOT Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#4878 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#4878`SPOT Velocitron Oilsport Racetrack=83
+
+&RACEINFO`#4878`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#496 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#496`SPOT Velocitron Oilsport Racetrack=121
+
+&RACEINFO`#496`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#4994 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#4994`SPOT Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#4994`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#5399 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#5399`SPOT Velocitron Oilsport Racetrack=98
+
+&RACEINFO`#5399`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#5498 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#5498`SPOT Velocitron Oilsport Racetrack=21
+
+&RACEINFO`#5498`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#5996 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#5996`SPOT Velocitron Oilsport Racetrack=41
+
+&RACEINFO`#5996`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#6048 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#6048`SPOT Velocitron Oilsport Racetrack=105
+
+&RACEINFO`#6048`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#6628 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#6628`SPOT Velocitron Oilsport Racetrack=24
+
+&RACEINFO`#6628`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#6771 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#6771`SPOT Velocitron Oilsport Racetrack=57
+
+&RACEINFO`#6771`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#6792 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#6792`SPOT Velocitron Oilsport Racetrack=57
+
+&RACEINFO`#6792`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#7000 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#7000`SPOT Velocitron Oilsport Racetrack=36
+
+&RACEINFO`#7000`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#7181 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#7181`SPOT Velocitron Oilsport Racetrack=78
+
+&RACEINFO`#7181`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#728 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#728`SPOT Velocitron Oilsport Racetrack=47
+
+&RACEINFO`#728`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#739 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#739`SPOT Velocitron Oilsport Racetrack=26
+
+&RACEINFO`#739`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#74 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#74`SPOT Velocitron Oilsport Racetrack=5
+
+&RACEINFO`#74`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#7994 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#7994`SPOT Velocitron Oilsport Racetrack=83
+
+&RACEINFO`#7994`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#811 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#811`SPOT Velocitron Oilsport Racetrack=94
+
+&RACEINFO`#8523 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#8523`SPOT Velocitron Oilsport Racetrack=89
+
+&RACEINFO`#8523`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#8529 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#8529`SPOT Velocitron Oilsport Racetrack=109
+
+&RACEINFO`#8529`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#8569 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#8569`SPOT Velocitron Oilsport Racetrack=88
+
+&RACEINFO`#8569`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#8578 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#8578`SPOT Velocitron Oilsport Racetrack=61
+
+&RACEINFO`#8578`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#8780 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#8780`SPOT Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#8780`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#8795 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#8795`SPOT Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#8795`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#8799 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#8799`SPOT Velocitron Oilsport Racetrack=78
+
+&RACEINFO`#8799`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#9265 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#9265`SPOT Velocitron Oilsport Racetrack=73
+
+&RACEINFO`#9265`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#9324 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#9324`SPOT Velocitron Oilsport Racetrack=88
+
+&RACEINFO`#9324`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#9402 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#9402`SPOT Velocitron Oilsport Racetrack=84
+
+&RACEINFO`#9411 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#9411`SPOT Velocitron Oilsport Racetrack=84
+
+&RACEINFO`#9411`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#967 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#967`SPOT Velocitron Oilsport Racetrack=33
+
+&RACEINFO`#967`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#9698 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#9698`SPOT Velocitron Oilsport Racetrack=86
+
+&RACEINFO`#9698`TURN Velocitron Oilsport Racetrack=0
+
+&RACEINFO`#9828 Velocitron Oilsport Racetrack=
+
+&RACEINFO`#9828`SPOT Velocitron Oilsport Racetrack=45
+
+&RACEINFO`#9828`TURN Velocitron Oilsport Racetrack=0
+
+&REFEREE Velocitron Oilsport Racetrack=#7000 #6792 #6792 #6792 #1998 #5498 #9285 #10241 #6792 #6792 #1245 #967
+
+================================================================
